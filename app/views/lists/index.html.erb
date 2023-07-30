@@ -1,8 +1,46 @@
-<h1>投稿一覧</h1>
+<div>
+  <%= flash[:notice] %>
+</div>
 
-<% @lists.each do |list| %>
+<h1>Books</h1>
+ 
+ <table>
+   <thead>
+   <tr>
+    <th>Title</th>
+    <th>Body</th>
+   </tr>
+   </thead>
 
-  <p>タイトル</p>
-  <span><%= link_to list.title,  list_path(list.id) %></span>
+<tbody>
+ <% @lists.each do |list| %>
+  <tr>
+  <td><%= list.title %></td>
+  <td><%= list.body %></td>
+  <td><%= link_to "show", list_path(list.id) %></td>
+  <td><%= link_to "Edit", edit_list_path(list.id) %></td>
+  <td><%= link_to "Destroy", list_path(list.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+  </tr>
+  <% end %>
+  </tbody>
+ </table>
+ 
+<h1>New book</h1>
+　<% if @list.errors.any? %>
+  <%= @list.errors.count %>error prohibited this book from being saved:
+　　<ul>
+   <% @list.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+   <% end %>
+ 　</ul>
+ <% end %>
+
+<%= form_with model: @list, url: '/lists', method: :post do |f| %>
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+	
+  <h4>Body</h4>
+  <%= f.text_area :body %>
   
+  <%= f.submit 'Create Book' %>
 <% end %>

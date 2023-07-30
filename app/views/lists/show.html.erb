@@ -1,6 +1,12 @@
-<h2>タイトル</h2>
-<p><%= @list.title %></p>
+<div>
+  <%= flash[:notice] %>
+</div>
 
-<h2>本文</h2>
-<p><%= @list.body %></p>
-<%= link_to "編集",edit_list_path(@list.id) %>
+<p><strong>Titke:</strong><%= @list.title %></p>
+
+<p><strong>Body：</strong><%= @list.body %></p>
+
+
+
+<%= link_to "Edit", edit_list_path(@list.id) %>
+<%= link_to "Back", lists_path %>
