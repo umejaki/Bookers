@@ -10,10 +10,10 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     # 3. データをデータベースに保存するためのsaveメソッド実行
    if @book.save
-      flash[:notice] = "投稿に成功しました。"
-      redirect_to book_path(@book.id)
+      flash[:notice] = "Book was successfully created."
+      redirect_to book_path(@Book.id)
    else
-      render :new
+      render :index
    end
   end
 
@@ -43,13 +43,13 @@ class BooksController < ApplicationController
   def destroy
     book = Book.find(params[:id])
     book.destroy
-    redirect_to 'Books'
+    redirect_to books_path
      flash[:notice] = "Book was successfully destroyed."
   end
   
   private
   # ストロングパラメータ
-  def boo_params
+  def book_params
     params.require(:book).permit(:title, :body)
   end
 end
